@@ -1,4 +1,3 @@
-// src/components/ProductCard.jsx
 import React from "react";
 
 export default function ProductCard({ producto, onComprar }) {
@@ -10,7 +9,7 @@ export default function ProductCard({ producto, onComprar }) {
       <button
         className="mt-4 bg-green-600 text-white px-4 py-2 rounded disabled:opacity-50"
         onClick={() => onComprar(producto.id)}
-        disabled={producto.stock <= 0}  // Deshabilitar el botón si el stock es 0
+        disabled={producto.stock <= 0}
       >
         Comprar
       </button>
