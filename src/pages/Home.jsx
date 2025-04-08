@@ -6,24 +6,14 @@ export default function Home() {
   const [productos, setProductos] = useState([]);
 
   const loadProductos = async () => {
-    try {
-      const data = await fetchProductos();
-      setProductos(data);
-    } catch (error) {
-      console.error("Error al cargar productos:", error);
-      setProductos([]);
-    }
+    const data = await fetchProductos();
+    setProductos(data);  // Asegúrate de que los datos incluyen stock
   };
 
   const handleCompra = async (id) => {
-    try {
-      await comprarProducto(id);
-      await loadProductos(); // Refrescar productos con el stock actualizado
-      alert("¡Compra realizada con éxito!");
-    } catch (error) {
-      console.error("Error en la compra:", error);
-      alert("Hubo un error al realizar la compra.");
-    }
+    await comprarProducto(id);
+    await loadProductos(); // Refrescar productos con el stock actualizado
+    alert("¡Compra realizada con éxito!");
   };
 
   useEffect(() => {
@@ -34,13 +24,9 @@ export default function Home() {
     <div className="p-6">
       <h1 className="text-3xl font-bold mb-6">EcoModa - Tienda Online</h1>
       <div className="flex flex-wrap gap-6">
-        {productos.length === 0 ? (
-          <p>No hay productos disponibles</p>
-        ) : (
-          productos.map((p) => (
-            <ProductCard key={p.id} producto={{ ...p, stock: p.stock }} onComprar={handleCompra} />
-          ))
-        )}
+        {productos.map((p) => (
+          <ProductCard key={p.id} producto={p} onComprar={handleCompra} />
+        ))}
       </div>
     </div>
   );
