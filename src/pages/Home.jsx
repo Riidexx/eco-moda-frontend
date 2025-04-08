@@ -16,9 +16,14 @@ export default function Home() {
   };
 
   const handleCompra = async (id) => {
-    await comprarProducto(id);
-    await loadProductos(); // refrescar stock
-    alert("¡Compra realizada con éxito!");
+    try {
+      await comprarProducto(id);
+      await loadProductos(); // Refrescar productos con el stock actualizado
+      alert("¡Compra realizada con éxito!");
+    } catch (error) {
+      console.error("Error en la compra:", error);
+      alert("Hubo un error al realizar la compra.");
+    }
   };
 
   useEffect(() => {
@@ -33,7 +38,7 @@ export default function Home() {
           <p>No hay productos disponibles</p>
         ) : (
           productos.map((p) => (
-            <ProductCard key={p.id} producto={{ ...p, stock: 10 }} onComprar={handleCompra} />
+            <ProductCard key={p.id} producto={{ ...p, stock: p.stock }} onComprar={handleCompra} />
           ))
         )}
       </div>
