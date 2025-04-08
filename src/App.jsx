@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchProductos, comprarProducto } from "./api";
+import api from "./services/api";
 
 function App() {
   const [productos, setProductos] = useState([]);
